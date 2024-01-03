@@ -1,16 +1,22 @@
-from lib.database_connection import DatabaseConnection
-from lib.CustomerRepository import CustomerRepository
-from lib.AccountsRepository import AccountsRepository
+import os
+from flask import Flask
+from lib.database_connection import get_flask_database_connection
 
-connection = DatabaseConnection()
-connection.connect()
-connection.seed("seeds/BankingCustomers.sql")
-customer_repository = CustomerRepository(connection)
+# Create a new Flask app
+app = Flask(__name__)
 
-for customer in customer_repository.all():
-    print(customer)
-    
-account_repository =AccountsRepository(connection)
-    
-for account in account_repository.all():
-    print(account)
+# == Your Routes Here ==
+
+
+# This imports some more example routes for you to see how they work
+# You can delete these lines if you don't need them.
+from routes import apply_routes
+apply_routes(app)
+
+# == End Example Code ==
+
+# These lines start the server if you run this file directly
+# They also start the server configured to use the test database
+# if started in test mode.
+if __name__ == '__main__':
+    app.run(debug=True, port=int(os.environ.get('PORT', 5001)))
