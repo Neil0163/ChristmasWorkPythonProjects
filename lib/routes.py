@@ -7,6 +7,7 @@ from flask import request
 
 
 # You won't need to nest your routes in app.py in a method like this
+
 def apply_routes(app):
     # GET /customer
     # Returns a list of customers
@@ -17,7 +18,7 @@ def apply_routes(app):
         connection = get_flask_database_connection(app)
         repository = CustomerRepository(connection)
         return "\n".join([
-            str(customer) for customer in repository.all()
+        str(customer) for customer in repository.all()
         ])
     # GET /customers/<id>
     # Returns a single customer
@@ -28,9 +29,9 @@ def apply_routes(app):
         repository = CustomerRepository(connection)
         customer = repository.find(id)  # Retrieve customer using repository
         if customer:
-            return str(customer)
+                return str(customer)
         else:
-            return "Customer not found", 404  # Handle case where customer is not found
+                return "Customer not found", 404  # Handle case where customer is not found
     # POST /customers
     # Creates a new customer
     # Try it:
@@ -62,7 +63,7 @@ def apply_routes(app):
         connection = get_flask_database_connection(app)
         repository = AccountsRepository(connection)
         return "\n".join([
-            str(account) for account in repository.all()
+                str(account) for account in repository.all()
         ])
     #curl http://localhost:5001/accounts/2
     @app.route('/accounts/<int:id>', methods=['GET'])
@@ -71,9 +72,9 @@ def apply_routes(app):
         repository = AccountsRepository(connection)
         account = repository.find(id)  # Retrieve account using repository
         if account:
-            return str(account)
+                return str(account)
         else:
-            return "Account not found", 404  # Handle case where customer is not found
+                return "Account not found", 404  # Handle case where customer is not found
     
     #curl -X POST -d "accountname=Black&accountnumber=2003455&accountbalance=50000&customerid=1" http://localhost:5001/accounts
     @app.route('/accounts', methods=['POST'])
