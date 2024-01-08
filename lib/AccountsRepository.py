@@ -32,3 +32,7 @@ class AccountsRepository:
     def delete(self, account_id):
         self._connection.execute ("DELETE FROM accounts WHERE id = %s",[account_id])
         return None
+    
+    def update_balance(self, account):
+        self._connection.execute("UPDATE accounts SET accountbalance = %s WHERE id = %s", [account.accountbalance, account.id])
+        return None 

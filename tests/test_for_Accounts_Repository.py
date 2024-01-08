@@ -42,3 +42,14 @@ def test_for_delete(db_connection):
     Accounts(2, 'Savings', 3009004, 5000, 2),
     Accounts(4, 'Ruby', 2076554, 11245, 1)
     ]
+    
+def test_for_update_balance(db_connection):
+    db_connection.seed("seeds/BankingCustomers.sql")
+    repository = AccountsRepository(db_connection)
+    inital_account = Accounts(2, 'Savings', 3009004, 5000, 2)
+    repository.find(2)
+    updated_account = Accounts(2, 'Savings', 3009004,20000, 2)  # Change the balance to 20000
+    repository.update_balance(updated_account)
+    result = repository.find(2)
+    assert result == Accounts(2, 'Savings', 3009004,20000, 2)
+    
